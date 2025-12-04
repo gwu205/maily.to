@@ -1,6 +1,6 @@
+import { Loader2Icon, LogOutIcon } from 'lucide-react';
 import { useFetcher } from 'react-router';
 import { Button } from '../ui/button';
-import { Loader2Icon, LogOutIcon } from 'lucide-react';
 
 export function LogoutButton() {
   const fetcher = useFetcher({
@@ -18,7 +18,7 @@ export function LogoutButton() {
         className="gap-2"
         size="sm"
         type="submit"
-        variant="destructive"
+        variant="outline"
         disabled={busy}
       >
         {busy && <Loader2Icon className="h-4 w-4 animate-spin" />}

@@ -1,8 +1,8 @@
+import { z } from 'zod';
+import { serializeZodError } from '~/lib/errors';
+import { json } from '~/lib/response';
 import { createSupabaseServerClient } from '~/lib/supabase/server';
 import type { Route } from './+types/api.v1.templates.$templateId';
-import { z } from 'zod';
-import { json } from '~/lib/response';
-import { serializeZodError } from '~/lib/errors';
 
 export async function action(args: Route.ActionArgs) {
   const { request, params } = args;
@@ -47,6 +47,12 @@ export async function action(args: Route.ActionArgs) {
       title: z.string().trim().min(3),
       previewText: z.string().trim().optional(),
       content: z.string(),
+      titleEn: z.string().trim().optional(),
+      titleJa: z.string().trim().optional(),
+      previewTextEn: z.string().trim().optional(),
+      previewTextJa: z.string().trim().optional(),
+      contentEn: z.string().optional(),
+      contentJa: z.string().optional(),
     });
 
     const { data, error } = schema.safeParse(body);
@@ -71,7 +77,21 @@ export async function action(args: Route.ActionArgs) {
     const { title, previewText, content } = data;
     const { error: updateError } = await supabase
       .from('mails')
-      .update({ title, preview_text: previewText, content })
+      .update({
+        ...(title && { title }),
+        ...(data.titleEn !== undefined && { title_en: data.titleEn }),
+        ...(data.titleJa !== undefined && { title_ja: data.titleJa }),
+        ...(previewText !== undefined && { preview_text: previewText }),
+        ...(data.previewTextEn !== undefined && {
+          preview_text_en: data.previewTextEn,
+        }),
+        ...(data.previewTextJa !== undefined && {
+          preview_text_ja: data.previewTextJa,
+        }),
+        ...(content && { content }),
+        ...(data.contentEn !== undefined && { content_en: data.contentEn }),
+        ...(data.contentJa !== undefined && { content_ja: data.contentJa }),
+      })
       .eq('id', templateId)
       .eq('user_id', user.id)
       .single();

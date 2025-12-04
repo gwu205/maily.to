@@ -1,5 +1,5 @@
-import { useEffect, type RefObject, useRef } from 'react';
 import { MailOpenIcon } from 'lucide-react';
+import { useEffect, useRef, type RefObject } from 'react';
 import { toast } from 'sonner';
 import { cn } from '~/lib/classname';
 import { Button } from './ui/button';
@@ -31,7 +31,14 @@ function renderHTMLToIFrame(
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap">
+        <style>
+          body {
+            font-family: 'Source Sans Pro', Arial, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", sans-serif;
+            margin: 0;
+            padding: 0;
+          }
+        </style>
       </head>
       <body>
         ${html}

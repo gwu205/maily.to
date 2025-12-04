@@ -84,11 +84,11 @@ export function ButtonView(props: NodeViewProps) {
           <div>
             <button
               className={cn(
-                'mly:inline-flex mly:items-center mly:justify-center mly:rounded-md mly:text-sm mly:font-medium mly:ring-offset-white mly:transition-colors mly:disabled:pointer-events-none mly:disabled:opacity-50',
+                'mly:inline-flex mly:items-center mly:justify-center mly:rounded-sm mly:text-sm mly:font-medium mly:ring-offset-white mly:transition-colors mly:disabled:pointer-events-none mly:disabled:opacity-50',
                 'mly:font-semibold mly:no-underline',
                 {
                   'mly:rounded-full!': _radius === 'round',
-                  'mly:rounded-md!': _radius === 'smooth',
+                  'mly:rounded-sm!': _radius === 'smooth',
                   'mly:rounded-none!': _radius === 'sharp',
                 }
               )}

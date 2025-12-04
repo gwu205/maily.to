@@ -130,9 +130,9 @@ export interface RendererThemeOptions extends BaseThemeOptions {
 
 export const DEFAULT_FONT: FontProps = {
   fallbackFontFamily: 'sans-serif',
-  fontFamily: 'Inter',
+  fontFamily: `Source Sans Pro', Arial, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, 'MS PGothic`,
   webFont: {
-    url: 'https://rsms.me/inter/font-files/Inter-Regular.woff2?v=3.19',
+    url: 'https://fonts.gstatic.com/s/sourcesanspro/v21/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNa7lqDY.woff2',
     format: 'woff2',
   },
 };

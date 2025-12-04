@@ -1,8 +1,8 @@
+import { z } from 'zod';
+import { serializeZodError } from '~/lib/errors';
+import { json } from '~/lib/response';
 import { createSupabaseServerClient } from '~/lib/supabase/server';
 import type { Route } from './+types/api.v1.templates._index';
-import { z } from 'zod';
-import { json } from '~/lib/response';
-import { serializeZodError } from '~/lib/errors';
 
 export async function action(args: Route.ActionArgs) {
   const { request } = args;
@@ -33,6 +33,12 @@ export async function action(args: Route.ActionArgs) {
     title: z.string().trim().min(3),
     previewText: z.string().trim().optional(),
     content: z.string(),
+    titleEn: z.string().trim().optional(),
+    titleJa: z.string().trim().optional(),
+    previewTextEn: z.string().trim().optional(),
+    previewTextJa: z.string().trim().optional(),
+    contentEn: z.string().optional(),
+    contentJa: z.string().optional(),
   });
 
   const { data, error } = schema.safeParse(body);
@@ -43,7 +49,18 @@ export async function action(args: Route.ActionArgs) {
   const { title, previewText, content } = data;
   const { error: insertError, data: insertData } = await supabase
     .from('mails')
-    .insert({ title, preview_text: previewText, content, user_id: user.id })
+    .insert({
+      title,
+      title_en: data.titleEn || title,
+      title_ja: data.titleJa || title,
+      preview_text: data.previewText,
+      preview_text_en: data.previewTextEn || data.previewText,
+      preview_text_ja: data.previewTextJa || data.previewText,
+      content,
+      content_en: data.contentEn || content,
+      content_ja: data.contentJa || content,
+      user_id: user.id,
+    })
     .select()
     .single();
   if (insertError) {
