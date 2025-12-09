@@ -64,7 +64,6 @@ export async function action(args: Route.ActionArgs) {
       .from('mails')
       .select('*')
       .eq('id', templateId)
-      .eq('user_id', user.id)
       .single();
 
     if (!template) {
@@ -93,7 +92,6 @@ export async function action(args: Route.ActionArgs) {
         ...(data.contentJa !== undefined && { content_ja: data.contentJa }),
       })
       .eq('id', templateId)
-      .eq('user_id', user.id)
       .single();
 
     if (updateError) {
@@ -108,7 +106,6 @@ export async function action(args: Route.ActionArgs) {
     const { error } = await supabase
       .from('mails')
       .delete()
-      .eq('id', templateId)
       .eq('user_id', user.id);
 
     if (error) {

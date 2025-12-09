@@ -33,7 +33,6 @@ export async function loader(args: Route.LoaderArgs) {
   const mails = await supabase
     .from('mails')
     .select('id, title, created_at')
-    .eq('user_id', user.id)
     .order('created_at', { ascending: false });
 
   return {
@@ -85,11 +84,13 @@ export default function Templates(props: Route.ComponentProps) {
         >
           + New Email
         </Link>
-
+        <div className="mb-4 text-sm text-gray-500">
+          Note: All templates are shared across all users. Any changes will be
+          visible to everyone.
+        </div>
         {data.length === 0 && (
           <p className="py-2 text-center text-sm">No Saved Emails</p>
         )}
-
         {data.length > 0 && (
           <div className="flex grow flex-col pb-4 pt-1">
             <div className="relative grow overflow-hidden">
@@ -139,7 +140,6 @@ export default function Templates(props: Route.ComponentProps) {
             </div>
           </div>
         )}
-
         <div className="mt-auto px-1">
           <LogoutButton />
         </div>

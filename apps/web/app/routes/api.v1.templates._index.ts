@@ -59,7 +59,6 @@ export async function action(args: Route.ActionArgs) {
       content,
       content_en: data.contentEn || content,
       content_ja: data.contentJa || content,
-      user_id: user.id,
     })
     .select()
     .single();
